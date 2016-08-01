@@ -152,30 +152,6 @@
             </field>
         </record>
 
-        <!-- CLAIM VIEWS -->
-        <record model="ir.ui.view" id="crm_case_claims_tree_view">
-            <field name="name">CRM - Claims Tree</field>
-            <field name="model">crm.claim</field>
-            <field name="inherit_id" ref="crm_claim.crm_case_claims_tree_view"/>
-            <field name="arch" type="xml">
-                <field name="stage_id" position="after">
-                    <field name="section_id"/>
-                </field>
-            </field>
-        </record>
-
-        <!-- Crm claim Search view -->
-        <record id="view_crm_case_claims_filter" model="ir.ui.view">
-            <field name="name">CRM - Claims Search</field>
-            <field name="model">crm.claim</field>
-            <field name="inherit_id" ref="crm_claim.view_crm_case_claims_filter"/>
-            <field name="arch" type="xml">
-                <filter string="Stage" icon="terp-stage" domain="[]" context="{'group_by':'stage_id'}" position="before">
-                    <filter string="Sales Team" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'section_id'}"/>
-                </filter>
-            </field>
-        </record>
-
         <!-- Right side link to orders -->
         <act_window
             id="act_crm_claim_rma_sale_orders"
@@ -224,10 +200,6 @@
             name="Deliveries"
             res_model="stock.picking"
             src_model="crm.claim"/>
-
-        <record model="ir.actions.act_window" id="crm_claim.crm_case_categ_claim0">
-            <field name="context">{"search_default_user_id":uid, "stage_type":'claim'}</field>
-        </record>
 
         <!-- Claim lines action -->
         <record model="ir.actions.act_window" id="act_crm_case_claim_lines">
@@ -304,7 +276,7 @@
                     <field name="date" context="{'create_lines': False}"/>
                 </field>
                 <!-- Smart buttons -->
-                <xpath expr="//sheet[@string='Claims']/group[1]" position="after">
+                <xpath expr="//sheet/group[1]" position="after">
                     <div class="oe_right oe_button_box" style="width: 300px;" name="buttons">
                         <button name="%(act_crm_claim_rma_sale_orders)d" type="action"
                                 string="Quotation/Sales"
@@ -363,7 +335,7 @@
                                 context="{'search_default_partner_id': [partner_id],'search_default_user_id':False}"/>
                     </div>
                 </xpath>
-                <xpath expr="//sheet[@string='Claims']/group[1]" position="replace">
+                <xpath expr="//sheet/group[1]" position="replace">
                     <div class="oe_title oe_left">
                         <h1><field name="code"/></h1>
                         <div class="oe_edit_only">
@@ -377,7 +349,7 @@
                     <field name="categ_id"/>
                 </field>
                 <!-- New tabs for products return and generated documents -->
-                <page string="Follow Up" position="before">
+                <notebook position="inside">
                     <page string="Product Return">
                         <group name="Product Return">
                             <separator string="Product Return" colspan="4"/>
@@ -401,7 +373,7 @@
                         <separator colspan="2" string="Receptions / Deliveries"/>
                         <field name="picking_ids" colspan="4" readonly="1"/>
                     </page>
-	            </page>
+	            </notebook>
             </field>
         </record>
 

@@ -99,6 +99,6 @@ Contributors:
         'images/return_line.png',
         'images/exchange.png',
     ],
-    'installable': False,
+    'installable': True,
     'auto_install': False,
 }
