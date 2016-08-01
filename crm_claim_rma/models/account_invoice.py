@@ -67,8 +67,7 @@ class AccountInvoice(models.Model):
         if not new_lines:
             # TODO use custom states to show button of this wizard or
             # not instead of raise an error
-            raise exceptions.Warning(
-                _('A refund has already been created for this claim !'))
+            raise exceptions.Warning(_('A refund has already been created for this claim !'))
         return [(0, 0, l) for l in new_lines]
 
     @api.model

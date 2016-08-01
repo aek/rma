@@ -246,12 +246,10 @@ class ClaimLine(models.Model):
                 claim.invoice_id, claim.claim_type,
                 self.product_id, claim.date)
         except InvoiceNoDate:
-            raise exceptions.Warning(
-                _('Error'), _('Cannot find any date for invoice. '
+            raise exceptions.Warning(_('Cannot find any date for invoice. '
                               'Must be a validated invoice.'))
         except ProductNoSupplier:
-                raise exceptions.Warning(
-                    _('Error'), _('The product has no supplier configured.'))
+                raise exceptions.Warning(_('The product has no supplier configured.'))
 
         self.write(values)
         return True
@@ -386,8 +384,7 @@ class ClaimLine(models.Model):
     def set_warranty(self):
         """ Calculate warranty limit and address """
         if not (self.product_id and self.invoice_line_id):
-            raise exceptions.Warning(
-                _('Error'), _('Please set product and invoice.'))
+            raise exceptions.Warning(_('Please set product and invoice.'))
         self.set_warranty_limit()
         self.set_warranty_return_address()
 
@@ -402,8 +399,7 @@ class CrmClaim(models.Model):
         wh_obj = self.env['stock.warehouse']
         wh = wh_obj.search([('company_id', '=', company_id)], limit=1)
         if not wh:
-            raise exceptions.Warning(
-                _('There is no warehouse for the current user\'s company.'))
+            raise exceptions.Warning(_('There is no warehouse for the current user\'s company.'))
         return wh
 
     @api.one

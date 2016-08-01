@@ -122,9 +122,7 @@ class ClaimMakePicking(models.TransientModel):
             ]
             lines = lines.search(domain)
             if not lines:
-                raise exceptions.Warning(
-                    _('Error'),
-                    _('A picking has already been created for this claim.'))
+                raise exceptions.Warning(_('A picking has already been created for this claim.'))
         return lines
 
     claim_line_source_location_id = fields.Many2one(
@@ -234,9 +232,7 @@ class ClaimMakePicking(models.TransientModel):
             common_dest_partner = self._get_common_partner_from_line(
                 claim_lines)
             if not common_dest_partner:
-                raise exceptions.Warning(
-                    _('Error'),
-                    _('A product return cannot be created for various '
+                raise exceptions.Warning(_('A product return cannot be created for various '
                       'destination addresses, please choose line with a '
                       'same address.'))
             partner_id = common_dest_partner.id
