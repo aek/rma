@@ -441,7 +441,7 @@ class CrmClaim(models.Model):
     def _onchange_invoice_warehouse_type_date(self):
         context = self.env.context
         claim_line_obj = self.env['claim.line']
-        invoice_lines = self.invoice_id.invoice_line
+        invoice_lines = self.invoice_id.invoice_line_ids
         claim_lines = []
         if not self.warehouse_id:
             self.warehouse_id = self._get_default_warehouse()
@@ -494,18 +494,18 @@ class CrmClaim(models.Model):
         if self.invoice_id:
             self.delivery_address_id = self.invoice_id.partner_id.id
 
-    @api.multi
-    def message_get_reply_to(self):
-        """ Override to get the reply_to of the parent project. """
-        result = {}
-        for claim in self.sudo():
-            section = claim.section_id
-            if section:
-                section_reply_to = section.message_get_reply_to()
-                result[claim.id] = section_reply_to[section.id]
-            else:
-                result[claim.id] = False
-        return result
+    # @api.multi
+    # def message_get_reply_to(self):
+    #     """ Override to get the reply_to of the parent project. """
+    #     result = {}
+    #     for claim in self.sudo():
+    #         section = claim.section_id
+    #         if section:
+    #             section_reply_to = section.message_get_reply_to()
+    #             result[claim.id] = section_reply_to[section.id]
+    #         else:
+    #             result[claim.id] = False
+    #     return result
 
     @api.multi
     def message_get_suggested_recipients(self):
